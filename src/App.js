@@ -515,6 +515,57 @@ const App = () => {
           <div className="text-counter">{text.length} characters</div>
         </div>
 
+        <div className="action-buttons">
+          <button
+            className="btn btn-primary btn-large"
+            onClick={speak}
+            disabled={isProcessing}
+          >
+            {isProcessing ? "🔄 Processing..." : "🎤 Generate Speech & Audio"}
+          </button>
+
+          {isSpeaking && (
+            <div className="playback-controls">
+              {isPaused ? (
+                <button className="btn btn-secondary" onClick={resume}>
+                  ▶️ Resume
+                </button>
+              ) : (
+                <button className="btn btn-secondary" onClick={pause}>
+                  ⏸️ Pause
+                </button>
+              )}
+              <button className="btn btn-danger" onClick={stop}>
+                ⏹️ Stop
+              </button>
+            </div>
+          )}
+
+          <button className="btn btn-clear" onClick={handleClear}>
+            🗑️ Clear All
+          </button>
+        </div>
+
+        {/* Status Indicators */}
+        <div className="status-indicators">
+          <div className="status-item">
+            <span className="status-dot ready"></span>
+            Ready to generate audio
+          </div>
+          {isProcessing && (
+            <div className="status-item">
+              <span className="status-dot processing"></span>
+              Generating high-quality audio...
+            </div>
+          )}
+          {audioUrl && (
+            <div className="status-item">
+              <span className="status-dot success"></span>
+              Audio generated successfully!
+            </div>
+          )}
+        </div>
+
         <div className="controls-section">
           <div className="voice-selection">
             <h3>🎵 Voice Selection</h3>
@@ -688,57 +739,6 @@ const App = () => {
             </div>
           </div>
         )}
-
-        <div className="action-buttons">
-          <button
-            className="btn btn-primary btn-large"
-            onClick={speak}
-            disabled={isProcessing}
-          >
-            {isProcessing ? "🔄 Processing..." : "🎤 Generate Speech & Audio"}
-          </button>
-
-          {isSpeaking && (
-            <div className="playback-controls">
-              {isPaused ? (
-                <button className="btn btn-secondary" onClick={resume}>
-                  ▶️ Resume
-                </button>
-              ) : (
-                <button className="btn btn-secondary" onClick={pause}>
-                  ⏸️ Pause
-                </button>
-              )}
-              <button className="btn btn-danger" onClick={stop}>
-                ⏹️ Stop
-              </button>
-            </div>
-          )}
-
-          <button className="btn btn-clear" onClick={handleClear}>
-            🗑️ Clear All
-          </button>
-        </div>
-
-        {/* Status Indicators */}
-        <div className="status-indicators">
-          <div className="status-item">
-            <span className="status-dot ready"></span>
-            Ready to generate audio
-          </div>
-          {isProcessing && (
-            <div className="status-item">
-              <span className="status-dot processing"></span>
-              Generating high-quality audio...
-            </div>
-          )}
-          {audioUrl && (
-            <div className="status-item">
-              <span className="status-dot success"></span>
-              Audio generated successfully!
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );
